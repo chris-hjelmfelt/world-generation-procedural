@@ -6,6 +6,7 @@ Various methods for procedural generation
 
 * HeightMap uses the Diamond Square algorithm
 
+* Procedural is the start to following this: https://www.youtube.com/watch?v=CSa5O6knuwI
 
 
 ** Scripts are for Unity  **
