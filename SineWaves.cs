@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Procedural : MonoBehaviour
 {
-    public Transform prefab;
+    public Transform airPrefab;
+    public Transform stonePrefab;
+    public Transform waterPrefab;
     private int chunkSize = 120;
-    private int mainSurface = 35;
+    private int mainSurface = 40;
     private float frequency = 0.05f;
     private float amplitude = 8.0f;
+    private float seaLevel = 43;
 	
     void Start()
-    {        
+    {       
         for (int l = 0; l < chunkSize; l++)
         {
           var x = l * 3;
@@ -23,11 +26,16 @@ public class Procedural : MonoBehaviour
             var surface = mainSurface + xOffset + zOffset;                   
             //Debug.Log(surface);
 
-            for (int h = 0; h < chunkSize; h++)
+            for (int h = 0; h < chunkSize/2; h++)
             {     
+              Transform blockType = airPrefab;    // 0 = air, 1 = stone, 2 = water
               if (h < surface){
-                Instantiate(prefab, new Vector3(l * 1F, h * 1F, w * 1F), Quaternion.identity);
+                blockType = stonePrefab;
               }
+              else if (h < seaLevel) {
+                blockType = waterPrefab;
+              } 
+              Instantiate(blockType, new Vector3(l * 1F, h * 1F, w * 1F), Quaternion.identity);
             }
           }
         }
