@@ -5,20 +5,22 @@ using UnityEngine;
 public class Procedural : MonoBehaviour
 {
     public Transform prefab;
-    private int chunkSize = 90;
+    private int chunkSize = 120;
     private int mainSurface = 35;
-    private float frequency = 0.1f;
-    private float amplitude = 6.0f;
+    private float frequency = 0.05f;
+    private float amplitude = 8.0f;
 	
     void Start()
     {        
         for (int l = 0; l < chunkSize; l++)
         {
-          var x = l * 4;
+          var x = l * 3;
           for (int w = 0; w < chunkSize; w++)
-          {         	           
-            
-            var surface = mainSurface + Mathf.Sin((float)x * frequency) * amplitude;                   
+          {   
+            var z = w * 3;      	           
+            var xOffset = Mathf.Sin((float)x * frequency) * amplitude; 
+            var zOffset = Mathf.Sin((float)z * frequency) * amplitude;
+            var surface = mainSurface + xOffset + zOffset;                   
             //Debug.Log(surface);
 
             for (int h = 0; h < chunkSize; h++)
