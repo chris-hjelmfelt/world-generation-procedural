@@ -7,13 +7,16 @@ public class MapGenerator : MonoBehaviour
     private int mapWidth = 300;
     private int mapHeight = 300;
     private float noiseScale = 60;
+    private int octaves = 4;
+    private float persistance = 0.5f;
+    private float lacunarity = 2.0f;
 
     public void createMap() {
-        float[,] noiseMap = PerlinNoise.GenerateNoiseMap(mapWidth, mapHeight, noiseScale);
+        float[,] noiseMap = PerlinNoise.GenerateNoiseMap(mapWidth, mapHeight, noiseScale, octaves, persistance, lacunarity);
 
         // draw to screen
-        //MapDisplay display = FindObjectOfType<MapDisplay> ();
-        //display.DrawNoiseMap(noiseMap);
+        // MapDisplay display = FindObjectOfType<MapDisplay> ();
+        // display.DrawNoiseMap(noiseMap);
 
         // create terrian with blocks
         PlaceBlocks display = FindObjectOfType<PlaceBlocks> ();
