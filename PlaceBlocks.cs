@@ -20,9 +20,9 @@ public class PlaceBlocks : MonoBehaviour
         {
           for (int w = 0; w < width; w++)
           {  
-            var surface = mainSurface + noiseMap[l,w] * amplitude;                 
+            float surface = Mathf.Floor(mainSurface + noiseMap[l,w] * amplitude);                 
             //Debug.Log(noiseMap[l,w]);
-
+            
             for (int h = 0; h < (mainSurface + amplitude); h++)
             {     
                 Transform blockType = airPrefab;    // 0 = air, 1 = stone, 2 = water
@@ -32,8 +32,14 @@ public class PlaceBlocks : MonoBehaviour
                 else if (h < seaLevel) {
                   blockType = waterPrefab;
                 } 
-
-                if (blockType != airPrefab) {
+                // Show the sides and top of land
+                if (l == 0 || l == height - 1 || w == 0 || w == width - 1 || h == surface - 1) {
+                  if (blockType == stonePrefab) {  // don't create air and we do water later
+                    Instantiate(blockType, new Vector3(l * 1F, h * 1F, w * 1F), Quaternion.identity);
+                  }
+                }
+                // Show the water
+                else if (blockType == waterPrefab) {
                   Instantiate(blockType, new Vector3(l * 1F, h * 1F, w * 1F), Quaternion.identity);
                 }
             }
